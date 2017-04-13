@@ -1,0 +1,48 @@
+@extends('layouts.admin');
+
+@section('content')
+    <h1>Edit User</h1>
+
+    <div class="col-sm-3">
+        <img src="{{$user->photo->path or '/images/300px-No_image_available.svg.png'}}" alt="" class="img-responsive img-rounded">
+    </div>
+
+    <div class="col-sm-9">
+        {!! Form::model($user, ['method'=>'PATCH', 'action'=>['AdminUsersController@update', $user->id], 'files'=>true]) !!}
+        <div class="form-group">
+            {!! Form::label('name', 'Name: ') !!}
+            {!! Form::text('name', null, ['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('email', 'Email: ') !!}
+            {!! Form::email('email', null, ['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('password', 'Password: ') !!}
+            {!! Form::password('password', ['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('role_id', 'Role: ') !!}
+            {!! Form::select('role_id', [''=>'Choose a role..'] + $roles, null, ['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('is_active', 'Status: ') !!}
+            {!! Form::select('is_active', array(0 =>'Inactive', 1 => 'Active'), null, ['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('image', 'Image: ') !!}
+            {!! Form::file('image', null, ['class'=>'form-control']) !!}
+        </div>
+
+
+        <div class="form-group">
+            {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
+        </div>
+        {!! Form::close() !!}
+    </div>
+@stop
