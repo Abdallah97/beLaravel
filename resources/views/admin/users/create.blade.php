@@ -20,8 +20,8 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('image', 'Image: ') !!}
-        {!! Form::file('image', null, ['class'=>'form-control']) !!}
+        {!! Form::label('role_id', 'Role: ') !!}
+        {!! Form::select('role_id', [''=>'Choose a role..'] + $roles, null, ['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">
@@ -30,12 +30,13 @@
     </div>
 
     <div class="form-group">
-        {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
+        {!! Form::label('image', 'Image: ') !!}
+        {!! Form::file('image', null, ['class'=>'form-control']) !!}
     </div>
 
+
     <div class="form-group">
-        {!! Form::label('role_id', 'Role: ') !!}
-        {!! Form::select('role_id', [''=>'Choose a role..'] + $roles, null, ['class'=>'form-control']) !!}
+        {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
 
