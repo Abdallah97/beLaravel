@@ -42,7 +42,7 @@
 
 
             <div class="form-group">
-                {!! Form::submit('Submit', ['class'=>'btn btn-primary col-sm-4']) !!}
+                {!! Form::submit('Update User', ['class'=>'btn btn-primary col-sm-4']) !!}
             {!! Form::close() !!}
 
             {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy',$user->id]]) !!}
