@@ -32,7 +32,7 @@
                         </td>
                         <td>
                             {{$user->updated_at}}<br>
-                            <small>({{$user->created_at->diffForHumans()}})</small>
+                            <small>({{$user->updated_at->diffForHumans()}})</small>
                         </td>
                     </tr>
                 @endforeach

@@ -49,7 +49,12 @@ class AdminUsersController extends Controller
     public function store(UsersRequest $request)
     {
         //
-        $input = $request->all();
+        if(trim($request->password)===''){
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
 
         if($file = $request->file('image')){
             $name = time().$file->getClientOriginalName();
@@ -59,8 +64,6 @@ class AdminUsersController extends Controller
 
             $input['photo_id'] = $photo->id;
         }
-
-        $input['password'] = bcrypt($request->password);
 
         User::create($input);
 
@@ -105,19 +108,34 @@ class AdminUsersController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        $input = $request->all();
+
+        if(trim($request->password)===''){
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
 
         if($file = $request->file('image')){
             $name = time().$file->getClientOriginalName();
 
-            $file->move('images', $name);
+            if ($user->photo_id !== null){
+                $photo = Photo::findOrFail($user->photo_id);
 
-            $photo = Photo::create(['path'=>$name]);
+                $oldName = $photo->path;
+
+                unlink('C:/xampp/htdocs/codehacking/public'.$oldName);
+
+                $photo->path = $name;
+                $photo->update();
+
+            } else {
+                $photo = Photo::create(['path'=>$name]);
+            }
+            $file->move('images', $name);
 
             $input['photo_id'] = $photo->id;
         }
-
-        $input['password'] = bcrypt($request->password);
 
         $user->update($input);
 
