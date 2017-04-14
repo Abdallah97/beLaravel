@@ -120,17 +120,20 @@ class AdminUsersController extends Controller
         if($file = $request->file('image')){
             $name = time().$file->getClientOriginalName();
 
-            if ($user->photo_id !== null){
+            if ($user->photo_id !== 0){
+                echo 'NO ITS HERE';
                 $photo = Photo::findOrFail($user->photo_id);
 
                 $oldName = $photo->path;
 
-                unlink('C:/xampp/htdocs/codehacking/public'.$oldName);
+//                unlink('C:/xampp/htdocs/codehacking/public'.$oldName);
+                unlink(public_path().$oldName);
 
                 $photo->path = $name;
                 $photo->update();
 
             } else {
+                echo 'ITS HERE';
                 $photo = Photo::create(['path'=>$name]);
             }
             $file->move('images', $name);
@@ -159,7 +162,8 @@ class AdminUsersController extends Controller
 
             $oldName = $photo->path;
 
-            unlink('C:/xampp/htdocs/codehacking/public'.$oldName);
+//            unlink('C:/xampp/htdocs/codehacking/public'.$oldName);
+            unlink(public_path().$oldName);
 
             $photo->delete();
         }
