@@ -42,9 +42,13 @@
 
 
             <div class="form-group">
-                {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
-            </div>
+                {!! Form::submit('Submit', ['class'=>'btn btn-primary col-sm-4']) !!}
             {!! Form::close() !!}
+
+            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy',$user->id]]) !!}
+                {!! Form::submit('Delete User', ['class'=>'btn btn-danger col-sm-offset-4 col-sm-4']) !!}
+            {!! Form::close() !!}
+            </div>
         </div>
     </div>
 
