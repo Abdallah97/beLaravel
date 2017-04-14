@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -151,7 +152,21 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
-        User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
+
+        if($user->photo_id !== null){
+            $photo = Photo::findOrFail($user->photo_id);
+
+            $oldName = $photo->path;
+
+            unlink('C:/xampp/htdocs/codehacking/public'.$oldName);
+
+            $photo->delete();
+        }
+
+        Session::flash('deleted_user', $user->name.' has been deleted!');
+
+        $user->delete();
 
         return redirect('/admin/users');
     }
