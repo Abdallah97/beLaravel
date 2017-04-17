@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if(Session::has('deleted_post'))
+        <p class="bg-danger text-center">{{session('deleted_post')}}</p>
+    @endif
+
     <h1>Posts</h1>
 
     <table class="table">

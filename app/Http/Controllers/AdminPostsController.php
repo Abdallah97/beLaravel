@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminPostsController extends Controller
 {
@@ -146,6 +147,28 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::findOrFail($id);
 
+        //If the post have a image attach to it, it will enter
+        //this condition
+        if($post->photo_id !== null){
+            $photo = Photo::findOrFail($post->photo_id);
+            $oldName = $photo->path;
+
+            //Deleting the image from the images folder
+            unlink(public_path().$oldName);
+
+            //Delete the image record from photos table
+            $photo->delete();
+        }
+        $postTitle = $post->title;
+
+        //Deleting the post
+        $post->delete();
+
+        //Flashing message that the post has been successfully deleted
+        Session::flash('deleted_post', $postTitle.' has been deleted!');
+
+        return redirect('/admin/posts');
     }
 }
