@@ -4,7 +4,17 @@
     <h1>Categories</h1>
 
     <div class="col-sm-5">
-        {!! Form::open() !!}
+        {!! Form::open(['method'=>'POST', 'action'=>'AdminCategoriesController@store']) !!}
+
+        <div class="form-group">
+            {!! Form::label('name', 'Name: ') !!}
+            {!! Form::text('name', null, ['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::submit('Create Category', ['class'=>'btn btn-primary']) !!}
+        </div>
+
         {!! Form::close() !!}
     </div>
 
@@ -24,7 +34,7 @@
                 @foreach($categories as $category)
                     <tr>
                         <td>{{$category->id}}</td>
-                        <td>{{$category->name}}</td>
+                        <td><a href="{{route('admin.categories.edit', $category->id)}}">{{$category->name}}</a></td>
                         <td class="text-center">
                             {{$category->created_at}} <br>
                             <small>
