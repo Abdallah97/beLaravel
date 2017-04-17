@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if(Session::has('deleted_category'))
+        <h4 class="bg-danger text-center"><strong>{{session('deleted_category')}}</strong></h4>
+    @endif
+
     <h1>Categories</h1>
 
     <div class="col-sm-5">
