@@ -22,7 +22,7 @@
                 <tr>
                     <td>{{$post->id}}</td>
                     <td><img height="80" src="{{$post->photo->path or '/images/300px-No_image_available.svg.png'}}" alt=""></td>
-                    <td>{{$post->user->name}}</td>
+                    <td><a href="{{route('admin.posts.edit', $post->id)}}">{{$post->user->name}}</a></td>
                     <td>{{$post->category->name or 'No category yet'}}</td>
                     <td>{{$post->title}}</td>
                     <td>{{$post->content}}</td>

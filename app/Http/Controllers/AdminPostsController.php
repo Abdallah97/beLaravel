@@ -85,6 +85,10 @@ class AdminPostsController extends Controller
     public function edit($id)
     {
         //
+        $post = Post::findOrFail($id);
+        $categories = Category::lists('name', 'id')->all();
+
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -97,6 +101,40 @@ class AdminPostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $post = Post::findOrFail($id);
+        $input = $request->all();
+
+        if($file = $request->file('photo_id')){
+            //Only get in this selection if the edit page receives a new picture
+            $name = time().$file->getClientOriginalName();
+
+            if($post->photo_id !== 0){{
+                //Update if there's a picture previously
+                $photo = Photo::findOrFail($post->photo_id);
+                $oldName = $photo->path;
+
+                unlink(public_path().$oldName);
+
+                $photo->path = $name;
+                $photo->update();
+            }}
+            else {
+                //Update if there's no picture previously
+                $photo = Photo::create(['path'=>$name]);
+            }
+            $file->move('images', $name);
+
+            $input['photo_id'] = $photo->id;
+        }
+        //If there is no picture inputted in the edit page, it will straight up
+        //update the data in table
+        $post->update($input);
+
+        //It can also be updated like this
+        //(though the way you get the old photo data have to be changed too)
+        //Auth::user()->posts()->whereId($id)->first()->update($input)
+
+        return redirect('/admin/posts');
     }
 
     /**
@@ -108,5 +146,6 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }

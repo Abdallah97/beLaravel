@@ -121,7 +121,6 @@ class AdminUsersController extends Controller
             $name = time().$file->getClientOriginalName();
 
             if ($user->photo_id !== 0){
-                echo 'NO ITS HERE';
                 $photo = Photo::findOrFail($user->photo_id);
 
                 $oldName = $photo->path;
@@ -133,7 +132,6 @@ class AdminUsersController extends Controller
                 $photo->update();
 
             } else {
-                echo 'ITS HERE';
                 $photo = Photo::create(['path'=>$name]);
             }
             $file->move('images', $name);
