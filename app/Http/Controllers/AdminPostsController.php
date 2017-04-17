@@ -62,7 +62,7 @@ class AdminPostsController extends Controller
 
         $user->posts()->create($input);
 
-//        return redirect('/admin/posts');
+        return redirect('/admin/posts');
     }
 
     /**
