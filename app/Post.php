@@ -11,7 +11,8 @@ class Post extends Model
         'category_id',
         'photo_id',
         'content',
-        'title'
+        'title',
+        'user_id'
     ];
 
     public function user(){
