@@ -27,7 +27,7 @@ class PostsCreateRequest extends Request
             //
             'title'=>'required',
             'content'=>'required',
-//            'category_id'=>'required'
+            'category_id'=>'required'
         ];
     }
 }
