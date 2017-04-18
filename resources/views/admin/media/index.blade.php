@@ -1,6 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if(Session::has('deleted_image'))
+        <h1>
+            <p class="text-center bg-danger">
+                {{session('deleted_image')}}
+            </p>
+        </h1>
+    @endif
+
     <h1>Media</h1>
 
     <table class="table">
@@ -10,6 +18,7 @@
                 <th>Images</th>
                 <th class="text-center">Created At</th>
                 <th class="text-center">Updated At</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
 
@@ -26,6 +35,11 @@
                         <td class="text-center">
                             {{$image->updated_at}}<br>
                             <small>({{$image->updated_at->diffForHumans()}})</small>
+                        </td>
+                        <td class="text-center">
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminMediaController@destroy', $image->id]]) !!}
+                                {!! Form::submit('Delete Image', ['class'=> 'btn btn-danger']) !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach
