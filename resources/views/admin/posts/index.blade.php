@@ -29,7 +29,18 @@
                     <td><a href="{{route('admin.posts.edit', $post->id)}}">{{$post->user->name}}</a></td>
                     <td>{{$post->category->name or 'No category yet'}}</td>
                     <td>{{$post->title}}</td>
-                    <td>{{$post->content}}</td>
+                    @if(strlen($post->content) > 79)
+                        <td>
+                            {{str_limit($post->content, 80)}}
+                            <a href="{{route('home.post', $post->id)}}">Read more</a>
+                        </td>
+                    @else
+                        <td>
+                            <a href="{{route('home.post', $post->id)}}">
+                                {{$post->content}}
+                            </a>
+                        </td>
+                    @endif
                     <td>
                         {{$post->created_at}}<br>
                         <small>({{$post->created_at->diffForHumans()}})</small>
