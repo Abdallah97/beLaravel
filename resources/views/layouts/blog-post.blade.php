@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>@yield('title') - Codehacking</title>
 
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
 

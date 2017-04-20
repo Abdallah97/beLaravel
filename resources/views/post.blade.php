@@ -1,8 +1,14 @@
 @extends('layouts.blog-post')
 
+@section('title')
+    {{$post->title}}
+@stop
+
 @section('content')
     @if(Session::has('comment_flash'))
-        <h3 class="bg-success text-center">Your message has been submitted and will be displayed after the moderation process is done</h3>
+        <h3 class="bg-success text-center">
+            {{session('comment_flash')}}
+        </h3>
     @endif
 
     <!-- Title -->

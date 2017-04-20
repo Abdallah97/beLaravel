@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PostCommentsController extends Controller
 {
@@ -88,6 +89,10 @@ class PostCommentsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $comment = Comment::findOrFail($id);
+        $comment->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -99,5 +104,11 @@ class PostCommentsController extends Controller
     public function destroy($id)
     {
         //
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+
+        session()->flash('delete_comment', 'Comment has been successfully deleted!');
+
+        return redirect()->back();
     }
 }
