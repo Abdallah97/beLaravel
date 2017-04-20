@@ -5,6 +5,10 @@
     <!-- Title -->
     <h1>{{$post->title}}</h1>
 
+    @if(Session::has('comment_flash'))
+        <h3 class="bg-success text-center">Your message has been submitted and will be displayed after the moderation process is done</h3>
+    @endif
+
     <!-- Author -->
     <p class="lead">
         by <a href="#">{{$post->user->name}}</a>
@@ -34,9 +38,17 @@
     <div class="well">
         <h4>Leave a Comment:</h4>
 
-        {!! Form::open() !!}
-        {!! Form::close() !!}
+        {!! Form::open(['method'=>'POST', 'action'=>'PostCommentsController@store']) !!}
+        <input type="hidden" name="post_id" value="{{$post->id}}">
 
+        <div class="form-group">
+            {!! Form::textarea('content', null, ['class'=>'form-control', 'rows'=>3]) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::submit('Post Comment', ['class'=>'btn btn-primary']) !!}
+        </div>
+        {!! Form::close() !!}
     </div>
 
     <hr>

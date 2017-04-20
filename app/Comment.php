@@ -13,7 +13,8 @@ class Comment extends Model
         'author',
         'email',
         'content',
-        'is_active'
+        'is_active',
+        'path'
     ];
 
     public function replies(){
