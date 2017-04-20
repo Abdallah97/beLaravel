@@ -28,7 +28,10 @@
                     <td><img height="80" src="{{$post->photo->path or '/images/300px-No_image_available.svg.png'}}" alt=""></td>
                     <td><a href="{{route('admin.posts.edit', $post->id)}}">{{$post->user->name}}</a></td>
                     <td>{{$post->category->name or 'No category yet'}}</td>
-                    <td>{{$post->title}}</td>
+                    <td>
+                        {{$post->title}}<br>
+                        <small><a href="{{route('admin.comments.show', $post->id)}}">View comments</a></small>
+                    </td>
                     @if(strlen($post->content) > 79)
                         <td>
                             {{str_limit($post->content, 80)}}
