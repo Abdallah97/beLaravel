@@ -14,7 +14,7 @@ class Comment extends Model
         'email',
         'content',
         'is_active',
-        'path'
+        'image'
     ];
 
     public function replies(){

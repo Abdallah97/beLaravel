@@ -50,7 +50,9 @@ class PostCommentsController extends Controller
             'author' => $user->name,
             'email' => $user->email,
             'content' => $request->content,
+            'image' => $user->photo->path
         ];
+
         Comment::create($data);
 
         $request->session()->flash('comment_flash', 'Your message has been submitted and is waiting for moderation');
