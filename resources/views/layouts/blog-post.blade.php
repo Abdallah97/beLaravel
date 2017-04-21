@@ -68,7 +68,7 @@
 
             <!-- Blog Post -->
 
-           @yield('content');
+           @yield('content')
 
         </div>
 

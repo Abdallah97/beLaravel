@@ -68,7 +68,8 @@ class PostCommentsController extends Controller
     {
         //
         $post = Post::findOrFail($id);
-        $comments = Comment::where('post_id', $id)->get()->all();
+//        $comments = Comment::where('post_id', $id)->get()->all();
+        $comments = $post->comments;
 
         return view('admin.comments.show', compact('post', 'comments'));
     }
