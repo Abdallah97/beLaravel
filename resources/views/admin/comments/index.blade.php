@@ -71,6 +71,12 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-5">
+                {{$comments->render()}}
+            </div>
+        </div>
     @else
         <h2 class="text-center">* There's no comment available yet *</h2>
     @endif
