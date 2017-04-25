@@ -1,1 +1,1 @@
-{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAAoB;;EAElB,aAAa,EACd","file":"app.css","sourcesContent":[".custom-search-form input,\n.custom-search-form button{\n  height: 30px;\n}"]}
+{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAAA;EACE,2BAA2B,EAC5B;;AAED;EACE,+BAA+B,EAChC;;AAED;;EAEE,aAAa,EACd","file":"app.css","sourcesContent":[".nested-comment{\n  margin-top: 2px !important;\n}\n\n.primary-comment {\n  margin-bottom: 30px !important;\n}\n\n.custom-search-form input,\n.custom-search-form button{\n  height: 30px;\n}"]}

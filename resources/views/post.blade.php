@@ -11,6 +11,12 @@
         </h3>
     @endif
 
+    @if(Session::has('reply_flash'))
+        <h3 class="bg-success text-center">
+            {{session('reply_flash')}}
+        </h3>
+    @endif
+
     <!-- Title -->
     <h1>{{$post->title}}</h1>
 
@@ -28,11 +34,15 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-responsive" src="{{$post->photo->path}}" alt="">
 
     <hr>
 
+    @if($post->photo)
+        <img class="img-responsive" src="{{$post->photo->path}}" alt="">
+    @endif
+
     <!-- Post Content -->
+    <p><strong>{{$post->category->name or ''}}</strong></p>
     <p>{{$post->content}}</p>
 
     <hr>
@@ -67,19 +77,62 @@
         @foreach($comments as $comment)
             <div class="media">
                 <a class="pull-left" href="#">
-                    <img height="80" class="media-object" src="{{$comment->image}}" alt="">
+                    <img height="64" class="media-object" src="{{$comment->image}}" alt="">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">{{$comment->author}}
                         <small>
                             {{$comment->created_at->add(new DateInterval('PT7H'))->format('F j, Y')}}
                             at {{$comment->created_at->add(new DateInterval('PT7H'))->format('g:i A')}}
+                            ({{$comment->created_at->diffForHumans()}})
                         </small>
                     </h4>
 
-                    <p>
+                    <p class="primary-comment">
                         {{$comment->content}}
                     </p>
+
+                    {{--REPLIES--}}
+                    @if(count($comment->replies) > 0)
+
+                        @foreach($comment->replies as $reply)
+                            <div class="media nested-comment">
+                                <a class="pull-left" href="#">
+                                    <img height="44" class="media-object" src="{{ $reply->image or asset('images/300px-No_image_available.svg.png') }}" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">
+                                        {{$reply->author}}
+
+                                        <small>
+                                            {{$reply->created_at->add(new DateInterval('PT7H'))->format('F j, Y')}}
+                                            at {{$reply->created_at->add(new DateInterval('PT7H'))->format('g:i A')}}
+                                            ({{$reply->created_at->diffForHumans()}})
+                                        </small>
+                                    </h4>
+
+                                    <p>
+                                        {{$reply->content}}
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    @endif
+                    {{--END OF REPLIES--}}
+
+                    {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
+                    <input type="hidden" name="comment_id" value="{{$comment->id}}">
+
+                    <div class="form-group">
+                        {!! Form::textarea('content', null, ['class'=>'form-control', 'rows'=>3]) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::submit('Reply', ['class'=>'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
+
                 </div>
             </div>
         @endforeach

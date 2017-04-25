@@ -1,3 +1,9 @@
+.nested-comment {
+  margin-top: 2px !important; }
+
+.primary-comment {
+  margin-bottom: 30px !important; }
+
 .custom-search-form input,
 .custom-search-form button {
   height: 30px; }

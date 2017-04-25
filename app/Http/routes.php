@@ -41,3 +41,7 @@ Route::group(['middleware'=>'admin'], function (){
         return view('admin.index');
     });
 });
+
+Route::group(['middleware'=>'auth'], function (){
+    Route::post('comment/reply', ['as'=>'home.comment.reply', 'uses'=>'CommentRepliesController@createReply']);
+});
