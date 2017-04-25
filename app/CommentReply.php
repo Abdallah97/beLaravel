@@ -19,4 +19,12 @@ class CommentReply extends Model
     public function comment(){
         return $this->belongsTo('App\Comment');
     }
+
+    public function getIsActiveAttribute($status){
+        if ($status === 0){
+            return 'Hidden';
+        } else {
+            return 'Displayed';
+        }
+    }
 }

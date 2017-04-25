@@ -96,26 +96,30 @@
                     @if(count($comment->replies) > 0)
 
                         @foreach($comment->replies as $reply)
-                            <div class="media nested-comment">
-                                <a class="pull-left" href="#">
-                                    <img height="44" class="media-object" src="{{ $reply->image or asset('images/300px-No_image_available.svg.png') }}" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">
-                                        {{$reply->author}}
 
-                                        <small>
-                                            {{$reply->created_at->add(new DateInterval('PT7H'))->format('F j, Y')}}
-                                            at {{$reply->created_at->add(new DateInterval('PT7H'))->format('g:i A')}}
-                                            ({{$reply->created_at->diffForHumans()}})
-                                        </small>
-                                    </h4>
+                            @if($reply->is_active === 'Displayed')
+                                <div class="media nested-comment">
+                                    <a class="pull-left" href="#">
+                                        <img height="44" class="media-object" src="{{ $reply->image or asset('images/300px-No_image_available.svg.png') }}" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            {{$reply->author}}
 
-                                    <p>
-                                        {{$reply->content}}
-                                    </p>
+                                            <small>
+                                                {{$reply->created_at->add(new DateInterval('PT7H'))->format('F j, Y')}}
+                                                at {{$reply->created_at->add(new DateInterval('PT7H'))->format('g:i A')}}
+                                                ({{$reply->created_at->diffForHumans()}})
+                                            </small>
+                                        </h4>
+
+                                        <p>
+                                            {{$reply->content}}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
                         @endforeach
 
                     @endif

@@ -96,6 +96,10 @@ class CommentRepliesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $reply = CommentReply::findOrFail($id);
+        $reply->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -107,5 +111,11 @@ class CommentRepliesController extends Controller
     public function destroy($id)
     {
         //
+        $reply = CommentReply::findOrFail($id);
+        $reply->delete();
+
+        session()->flash('delete_reply', 'The reply has been deleted');
+
+        return redirect()->back();
     }
 }
