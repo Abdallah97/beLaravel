@@ -1,3 +1,9 @@
+.comment-reply-container {
+  margin-bottom: 14px; }
+
+.comment-reply {
+  display: none; }
+
 .nested-comment {
   margin-top: 2px !important; }
 

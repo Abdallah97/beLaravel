@@ -121,18 +121,23 @@
                     @endif
                     {{--END OF REPLIES--}}
 
-                    {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
-                    <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                    <div class="comment-reply-container">
+                        <button class="btn btn-primary pull-right toggle-reply">Reply</button>
 
-                    <div class="form-group">
-                        {!! Form::textarea('content', null, ['class'=>'form-control', 'rows'=>3]) !!}
+                        <div class="comment-reply col-xs-10">
+                            {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
+                            <input type="hidden" name="comment_id" value="{{$comment->id}}">
+
+                            <div class="form-group">
+                                {!! Form::textarea('content', null, ['class'=>'form-control', 'rows'=>3]) !!}
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        {!! Form::submit('Reply', ['class'=>'btn btn-primary']) !!}
-                    </div>
-                    {!! Form::close() !!}
-
                 </div>
             </div>
         @endforeach
@@ -164,4 +169,12 @@
         {{--</div>--}}
     {{--</div>--}}
 
+@stop
+
+@section('scripts')
+    <script>
+        $(".comment-reply-container .toggle-reply").click(function () {
+           $(this).next().slideToggle("slow");
+        });
+    </script>
 @stop
